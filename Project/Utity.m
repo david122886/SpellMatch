@@ -464,7 +464,7 @@
                         exit = YES;
                         NSLog(@"部分匹配");
                         [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:i]];
-                        if (i >0) {
+                        if (i > [Utity shared].firstpoint) {
                             NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                             NSRange range = [match rangeAtIndex:0];
                             NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i];//从起点x开始之前少x个单词

@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.orgText = @"hello,will: you. help me serve?";
+	self.orgText = @"hello,will: you. project me serve?";
     [Utity shared].isOrg = YES;
     self.orgArray = [Utity handleTheString:self.orgText];
     NSLog(@"orgArray = %@",self.orgArray);
