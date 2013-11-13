@@ -52,7 +52,7 @@
 +(NSArray *)handleTheString:(NSString *)string {
     NSMutableArray *tempArray = [[NSMutableArray alloc]init];
     NSError *error;
-    NSString *regTags = @"([a-zA-Z]+[-']*[a-zA-Z])|([a-zA-Z]+)";
+    NSString *regTags = @"([a-zA-Z]+[-']*[a-zA-Z]+)|([a-zA-Z]+)";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regTags
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
@@ -124,7 +124,9 @@
             return strAend -strAbegin +1;
         }
     }
-    if ([strA characterAtIndex:(NSUInteger)(strAbegin)] == [strB characterAtIndex:(NSUInteger)(strBbegin)]) {
+    
+//    if ([strA characterAtIndex:(NSUInteger)(strAbegin)] == [strB characterAtIndex:(NSUInteger)(strBbegin)]) {
+    if ([[[strA substringWithRange:NSMakeRange(strAbegin, 1)]uppercaseString] isEqualToString:[[strB substringWithRange:NSMakeRange(strBbegin, 1)]uppercaseString]]) {
         return [Utity DistanceBetweenTwoString:strA StrAbegin:strAbegin+1 StrAend:strAend StrB:strB StrBbegin: strBbegin+1 StrBend: strBend];
     }else {
         x = [Utity DistanceBetweenTwoString:strA StrAbegin:strAbegin+1 StrAend:strAend StrB:strB StrBbegin: strBbegin+1 StrBend: strBend];
@@ -133,7 +135,7 @@
         return[Utity MiniNum:x SetY:y SetZ:z] +1;
     }
 }
-
+///@"hello,will: can't.u project me serve?";
 //返回结果 arrA:输入文本的单词数组  /  arrAA:输入文本简化后的单词数组
 //        arrB:原文本单词数组    /   arrBB:原文本简化后的单词数组
 +(NSDictionary *)compareWithArray:(NSArray *)arrA andArray:(NSArray *)arrAA WithArray:(NSArray *)arrB andArray:(NSArray *)arrBB WithRange:(NSArray *)rangeArray{
@@ -462,37 +464,20 @@
             for (int i=0; i<temp_arrBB.count; i++) {
                 int m=0,n=0;
                 NSString *strBB = [temp_arrBB objectAtIndex:i];
-                //判断是否部分匹配
-                NSArray *arrayAA = [Utity handleTheLetter:strAA];
-                NSArray *arrayBB = [Utity handleTheLetter:strBB];
-                for (int k=0; k<arrayAA.count; k++) {
-                    NSString *letter = [arrayAA objectAtIndex:k];
-                    if ([arrayBB containsObject:letter]) {
-                        m++;
-                    }
-                }
-                float x = (float)strBB.length/2;
-                if (m-x>0) {//简化部分匹配
-                    NSString *strA = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
-                    NSString *strB = [temp_arrB objectAtIndex:i];
-                    NSArray *arrayA = [Utity handleTheLetter:strA];
-                    NSArray *arrayB = [Utity handleTheLetter:strB];
-                    for (int k=0; k<arrayA.count; k++) {
-                        NSString *letter = [arrayA objectAtIndex:k];
-                        if ([arrayB containsObject:letter]) {
-                            n++;
-                        }
-                    }
-                    float y = (float)strB.length/2;
-                    if (n-y>=0) {//原文部分匹配
-                        exit = YES;
-                        NSLog(@"部分匹配");
-                        [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                        if (i > [Utity shared].firstpoint) {
-                            NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
-                            NSRange range = [match rangeAtIndex:0];
-                            NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
-                            [[Utity shared].spaceLineArray addObject:str];
+                NSRange range = [strBB rangeOfString:strAA];
+                if (range.location!=NSNotFound) {
+                    if (range.location==0 && range.length <strBB.length) {
+                        NSString *strLetter = [strBB substringFromIndex:range.length];
+                        if ([strLetter isEqualToString:@"S"]) {
+                            NSLog(@"基本正确");
+                            [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                            [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                            if (i > [Utity shared].firstpoint) {
+                                NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
+                                NSRange range = [match rangeAtIndex:0];
+                                NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
+                                [[Utity shared].spaceLineArray addObject:str];
+                            }
                         }
                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
@@ -501,10 +486,51 @@
                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                         break;
                     }
-                }
-                if (i==temp_arrBB.count-1 && exit==NO) {//没有部分匹配
-                    NSLog(@"黑户");
-                    [Utity shared].firstpoint +=1;
+                }else {
+                    //判断是否部分匹配
+                    NSArray *arrayAA = [Utity handleTheLetter:strAA];
+                    NSArray *arrayBB = [Utity handleTheLetter:strBB];
+                    for (int k=0; k<arrayAA.count; k++) {
+                        NSString *letter = [arrayAA objectAtIndex:k];
+                        if ([arrayBB containsObject:letter]) {
+                            m++;
+                        }
+                    }
+                    float x = (float)strBB.length/2;
+                    if (m-x>0) {//简化部分匹配
+                        NSString *strA = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
+                        NSString *strB = [temp_arrB objectAtIndex:i];
+                        NSArray *arrayA = [Utity handleTheLetter:strA];
+                        NSArray *arrayB = [Utity handleTheLetter:strB];
+                        for (int k=0; k<arrayA.count; k++) {
+                            NSString *letter = [arrayA objectAtIndex:k];
+                            if ([arrayB containsObject:letter]) {
+                                n++;
+                            }
+                        }
+                        float y = (float)strB.length/2;
+                        if (n-y>=0) {//原文部分匹配
+                            exit = YES;
+                            NSLog(@"部分匹配");
+                            [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                            if (i > [Utity shared].firstpoint) {
+                                NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
+                                NSRange range = [match rangeAtIndex:0];
+                                NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
+                                [[Utity shared].spaceLineArray addObject:str];
+                            }
+                            [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
+                            [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                            [temp_arrB removeObjectAtIndex:i];
+                            [temp_arrBB removeObjectAtIndex:i];
+                            [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
+                            break;
+                        }
+                    }
+                    if (i==temp_arrBB.count-1 && exit==NO) {//没有部分匹配
+                        NSLog(@"黑户");
+                        [Utity shared].firstpoint +=1;
+                    }
                 }
             }
             return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];

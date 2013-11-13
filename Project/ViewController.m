@@ -19,7 +19,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.orgText = @"hello,will: can't.u project me serve?";
+    
+	self.orgText = @"offers ebooks required digitalizing readability cipher monik teeth choose randomness patent project";
     [Utity shared].isOrg = YES;
     
     self.orgArray = [Utity handleTheString:self.orgText];
@@ -36,8 +37,6 @@
     NSLog(@"array = %@",array);
     NSArray *array2 = [Utity metaphoneArray:array];
     NSLog(@"array2 = %@",array2);
-    
-    NSLog(@"range = %@",[Utity shared].rangeArray);
     
     [Utity shared].noticeArray = [[NSMutableArray alloc]init];
     [Utity shared].greenArray = [[NSMutableArray alloc]init];
