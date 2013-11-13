@@ -45,17 +45,7 @@
     [Utity shared].firstpoint = 0;
     NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
     NSLog(@"dic = %@",dic);
-//    NSTextCheckingResult *match = [[Utity shared].rangeArray objectAtIndex:0];
-//    NSRange range = [match rangeAtIndex:0];
-//    
-//    NSMutableAttributedString *attributedString = [self.textView.attributedText mutableCopy];
-//    if (range.length == attributedString.length-1 && range.length == self.textView.text.length)
-//        ++range.length;
-//    
-//    [attributedString addAttributes:[NSDictionary dictionaryWithObject:[UIColor greenColor] forKey:NSForegroundColorAttributeName] range:range];
-//
-//    [self.textView setAttributedText:attributedString];
-//    [self.textView setSelectedRange:range];
+
 }
 - (void)didReceiveMemoryWarning
 {
