@@ -14,4 +14,6 @@
 @property (nonatomic, strong) NSString *orgText;
 @property (nonatomic, strong) NSArray *orgArray;
 @property (nonatomic, strong) NSArray *metaphoneArray;
+
+
 @end

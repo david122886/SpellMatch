@@ -23,7 +23,6 @@
 		0EA115C81830D3BF00230C95 /* ProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA115C71830D3BF00230C95 /* ProjectTests.m */; };
 		0EA1378E1831B94200DA5D23 /* Utity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA1378D1831B94200DA5D23 /* Utity.m */; };
 		0EA137B71831F8BA00DA5D23 /* double_metaphone.c in Sources */ = {isa = PBXBuildFile; fileRef = 0EA137B51831F8BA00DA5D23 /* double_metaphone.c */; };
-		0EA137BB18320E1100DA5D23 /* NSAttributedString+Metaphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA137BA18320E1100DA5D23 /* NSAttributedString+Metaphone.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +59,6 @@
 		0EA1378D1831B94200DA5D23 /* Utity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utity.m; sourceTree = "<group>"; };
 		0EA137B51831F8BA00DA5D23 /* double_metaphone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = double_metaphone.c; sourceTree = "<group>"; };
 		0EA137B61831F8BA00DA5D23 /* double_metaphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = double_metaphone.h; sourceTree = "<group>"; };
-		0EA137B918320E1100DA5D23 /* NSAttributedString+Metaphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Metaphone.h"; sourceTree = "<group>"; };
-		0EA137BA18320E1100DA5D23 /* NSAttributedString+Metaphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Metaphone.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +123,6 @@
 				0EA115AE1830D3BF00230C95 /* Main.storyboard */,
 				0EA115B11830D3BF00230C95 /* ViewController.h */,
 				0EA115B21830D3BF00230C95 /* ViewController.m */,
-				0EA137B918320E1100DA5D23 /* NSAttributedString+Metaphone.h */,
-				0EA137BA18320E1100DA5D23 /* NSAttributedString+Metaphone.m */,
 				0EA1378C1831B94200DA5D23 /* Utity.h */,
 				0EA1378D1831B94200DA5D23 /* Utity.m */,
 				0EA137B51831F8BA00DA5D23 /* double_metaphone.c */,
@@ -267,7 +262,6 @@
 				0EA1378E1831B94200DA5D23 /* Utity.m in Sources */,
 				0EA115B31830D3BF00230C95 /* ViewController.m in Sources */,
 				0EA137B71831F8BA00DA5D23 /* double_metaphone.c in Sources */,
-				0EA137BB18320E1100DA5D23 /* NSAttributedString+Metaphone.m in Sources */,
 				0EA115AD1830D3BF00230C95 /* AppDelegate.m in Sources */,
 				0EA115A91830D3BF00230C95 /* main.m in Sources */,
 			);

@@ -29,6 +29,7 @@
 -(IBAction)btnPressed:(id)sender {
     [Utity shared].isOrg = NO;
     
+
     NSString *text = self.textView.text;
     NSArray *array = [Utity handleTheString:text];
     NSLog(@"array = %@",array);
@@ -37,13 +38,12 @@
     
     NSLog(@"range = %@",[Utity shared].rangeArray);
     
-    for (int i=0; i<array2.count; i++) {
-        NSString *str = [array2 objectAtIndex:i];
-        if ([self.metaphoneArray containsObject:str]) {
-            
-        }
-    }
-    
+    [Utity shared].noticeArray = [[NSMutableArray alloc]init];
+    [Utity shared].greenArray = [[NSMutableArray alloc]init];
+    [Utity shared].yellowArray = [[NSMutableArray alloc]init];
+    [Utity shared].spaceLineArray = [[NSMutableArray alloc]init];
+    NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
+    NSLog(@"dic = %@",dic);
 //    NSTextCheckingResult *match = [[Utity shared].rangeArray objectAtIndex:0];
 //    NSRange range = [match rangeAtIndex:0];
 //    
@@ -52,7 +52,7 @@
 //        ++range.length;
 //    
 //    [attributedString addAttributes:[NSDictionary dictionaryWithObject:[UIColor greenColor] forKey:NSForegroundColorAttributeName] range:range];
-//    
+//
 //    [self.textView setAttributedText:attributedString];
 //    [self.textView setSelectedRange:range];
 }

@@ -13,6 +13,10 @@
 @property (nonatomic, assign) BOOL isOrg;
 @property (nonatomic, strong) NSArray *rangeArray;
 
+@property (nonatomic, strong) NSMutableArray *greenArray;//绿色:正确，基本正确
+@property (nonatomic, strong) NSMutableArray *yellowArray;//黄色:部分匹配
+@property (nonatomic, strong) NSMutableArray *spaceLineArray;//下划线:缺词
+@property (nonatomic, strong) NSMutableArray *noticeArray;//标记需要提示的地方
 + (Utity *)shared;
 
 +(NSString*)spellStringWithWord:(NSString*)word;
@@ -21,4 +25,8 @@
 +(NSArray *)handleTheString:(NSString *)string;
 //单词转化字母数组
 +(NSArray *)handleTheLetter:(NSString *)string;
+//匹配相似度
++(int)DistanceBetweenTwoString:(NSString*)strA StrAbegin:(int)strAbegin StrAend:(int)strAend StrB:(NSString*)strB StrBbegin:(int)strBbegin StrBend:(int)strBend;
+//返回结果
++(NSDictionary *)compareWithArray:(NSArray *)arrA andArray:(NSArray *)arrAA WithArray:(NSArray *)arrB andArray:(NSArray *)arrBB WithRange:(NSArray *)rangeArray;
 @end
