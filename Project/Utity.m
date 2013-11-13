@@ -142,7 +142,7 @@
     NSMutableArray *temp_arrB = [NSMutableArray arrayWithArray:arrB];//原文本单词数组
     NSMutableArray *temp_arrBB = [NSMutableArray arrayWithArray:arrBB];//原文本简化后的单词数组
     NSMutableArray *temp_range = [NSMutableArray arrayWithArray:rangeArray];
-    if (temp_arrA.count>0 && temp_arrA.count>[Utity shared].firstpoint) {
+    if (temp_arrAA.count>0 && temp_arrA.count>[Utity shared].firstpoint && temp_arrBB.count>0) {
         NSLog(@"point = %d",[Utity shared].firstpoint);
         NSString *strAA = [temp_arrAA objectAtIndex:[Utity shared].firstpoint];
         if ([temp_arrBB containsObject:strAA]) {
@@ -162,7 +162,7 @@
                                 if (index2>index) {//0位置与index位置对应
                                     NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                                     NSRange range = [match rangeAtIndex:0];
-                                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index];//从起点0开始到中点
+                                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index-[Utity shared].firstpoint];//从起点0开始到中点
                                     [[Utity shared].spaceLineArray addObject:str];
                                     
                                     NSString *orgString = [temp_arrB objectAtIndex:index];
@@ -245,7 +245,7 @@
                                                 if (i>index) {//0位置与index位置对应
                                                     NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                                                     NSRange range = [match rangeAtIndex:0];
-                                                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index];//从起点0开始到中点
+                                                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index-[Utity shared].firstpoint];//从起点0开始到中点
                                                     [[Utity shared].spaceLineArray addObject:str];
                                                     
                                                     NSString *orgString = [temp_arrB objectAtIndex:index];
@@ -405,7 +405,7 @@
                 }else {//就是0位置与index位置对应
                     NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                     NSRange range = [match rangeAtIndex:0];
-                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index];
+                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index-[Utity shared].firstpoint];
                     [[Utity shared].spaceLineArray addObject:str];
                     
                     NSString *orgString = [temp_arrB objectAtIndex:index];
@@ -491,7 +491,7 @@
                         if (i > [Utity shared].firstpoint) {
                             NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                             NSRange range = [match rangeAtIndex:0];
-                            NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i];//从起点x开始之前少x个单词
+                            NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
                             [[Utity shared].spaceLineArray addObject:str];
                         }
                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
