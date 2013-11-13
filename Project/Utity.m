@@ -48,11 +48,11 @@
     }
     return tempArray;
 }
-//去除标点符号
+//去除标点符号 hello,will: can't. project me serve?
 +(NSArray *)handleTheString:(NSString *)string {
     NSMutableArray *tempArray = [[NSMutableArray alloc]init];
     NSError *error;
-    NSString *regTags = @"[a-zA-Z]+";
+    NSString *regTags = @"([a-zA-Z]+[-']*[a-zA-Z])|([a-zA-Z]+)";
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regTags
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
@@ -64,7 +64,6 @@
         [Utity shared].rangeArray = matches;
     }
     for (NSTextCheckingResult *match in matches) {
-
         NSRange matchRange = [match rangeAtIndex:0];
         NSString *str = [string substringWithRange:matchRange];
         
@@ -144,6 +143,7 @@
     NSMutableArray *temp_arrBB = [NSMutableArray arrayWithArray:arrBB];//原文本简化后的单词数组
     NSMutableArray *temp_range = [NSMutableArray arrayWithArray:rangeArray];
     if (temp_arrA.count>0 && temp_arrA.count>[Utity shared].firstpoint) {
+        NSLog(@"point = %d",[Utity shared].firstpoint);
         NSString *strAA = [temp_arrAA objectAtIndex:[Utity shared].firstpoint];
         if ([temp_arrBB containsObject:strAA]) {
             NSUInteger index = [temp_arrBB indexOfObject:strAA];
@@ -180,10 +180,14 @@
                                     }
                                     [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                     [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                                    NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                    NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
                                     for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                        [temp_arrB removeObjectAtIndex:yy];
-                                        [temp_arrBB removeObjectAtIndex:yy];
+                                        [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                        [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
                                     }
+                                    [temp_arrB removeObjectsInArray:tempArrayB];
+                                    [temp_arrBB removeObjectsInArray:tempArrayBB];
                                     [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                     return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];
                                 }else {//index位置与index位置对应
@@ -260,10 +264,14 @@
                                                     }
                                                     [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                                     [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                                                    NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                                    NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
                                                     for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                                        [temp_arrB removeObjectAtIndex:yy];
-                                                        [temp_arrBB removeObjectAtIndex:yy];
+                                                        [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                                        [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
                                                     }
+                                                    [temp_arrB removeObjectsInArray:tempArrayB];
+                                                    [temp_arrBB removeObjectsInArray:tempArrayBB];
                                                     [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                                     return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];
                                                 }else {//index位置与index位置对应
@@ -364,11 +372,11 @@
                     }else {//index位置元素不同－－就是0位置与index位置对应
                         NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                         NSRange range = [match rangeAtIndex:0];
-                        NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index];//从起点0开始到中点
+                        NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,index-[Utity shared].firstpoint];//从起点0开始到中点
                         [[Utity shared].spaceLineArray addObject:str];
                         
                         NSString *orgString = [temp_arrB objectAtIndex:index];
-                        NSString *string = [temp_arrA objectAtIndex:0];
+                        NSString *string = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
                         int rotateDis = [Utity DistanceBetweenTwoString:string StrAbegin:0 StrAend:string.length-1 StrB:orgString StrBbegin:0 StrBend:orgString.length-1];
                         NSLog(@"相似度=%d",rotateDis);
                         float x = (float)(string.length+orgString.length)/2;
@@ -383,12 +391,14 @@
                         
                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
                         for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                            [temp_arrB removeObjectAtIndex:yy];
-                            [temp_arrBB removeObjectAtIndex:yy];
+                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
                         }
-                        [temp_arrB removeObjectAtIndex:index];
-                        [temp_arrBB removeObjectAtIndex:index];
+                        [temp_arrB removeObjectsInArray:tempArrayB];
+                        [temp_arrBB removeObjectsInArray:tempArrayBB];
                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                         return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];
                     }
@@ -414,10 +424,14 @@
                     
                     [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                     [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                    NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                    NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
                     for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                        [temp_arrB removeObjectAtIndex:yy];
-                        [temp_arrBB removeObjectAtIndex:yy];
+                        [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                        [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
                     }
+                    [temp_arrB removeObjectsInArray:tempArrayB];
+                    [temp_arrBB removeObjectsInArray:tempArrayBB];
                     [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                     return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];
                 }
@@ -489,6 +503,7 @@
                     }
                 }
                 if (i==temp_arrBB.count-1 && exit==NO) {//没有部分匹配
+                    NSLog(@"黑户");
                     [Utity shared].firstpoint +=1;
                 }
             }

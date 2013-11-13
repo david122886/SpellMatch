@@ -21,6 +21,7 @@
 
 +(NSString*)spellStringWithWord:(NSString*)word;
 +(NSArray *)metaphoneArray:(NSArray *)array;
+
 //去除标点符号
 +(NSArray *)handleTheString:(NSString *)string;
 //单词转化字母数组

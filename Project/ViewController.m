@@ -19,8 +19,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.orgText = @"hello,will: you. project me serve?";
+	self.orgText = @"hello,will: can't.u project me serve?";
     [Utity shared].isOrg = YES;
+    
     self.orgArray = [Utity handleTheString:self.orgText];
     NSLog(@"orgArray = %@",self.orgArray);
     self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
