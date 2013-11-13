@@ -42,6 +42,7 @@
     [Utity shared].greenArray = [[NSMutableArray alloc]init];
     [Utity shared].yellowArray = [[NSMutableArray alloc]init];
     [Utity shared].spaceLineArray = [[NSMutableArray alloc]init];
+    [Utity shared].firstpoint = 0;
     NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
     NSLog(@"dic = %@",dic);
 //    NSTextCheckingResult *match = [[Utity shared].rangeArray objectAtIndex:0];

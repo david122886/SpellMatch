@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Utity : NSObject
-
+@property (nonatomic, assign) int firstpoint;
 @property (nonatomic, assign) BOOL isOrg;
 @property (nonatomic, strong) NSArray *rangeArray;
 
