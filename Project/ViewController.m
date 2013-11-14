@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-	self.orgText = @"This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.";
+	self.orgText = @"time";
     [Utity shared].isOrg = NO;
     
     self.orgArray = [Utity handleTheString:self.orgText];
@@ -28,6 +28,8 @@
     self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
     NSLog(@"metaphoneArray = %@",self.metaphoneArray);
 
+
+    /*
     for (UIView *view in self.textView.subviews)
         
     {
@@ -68,7 +70,7 @@
 //    vv.layer.cornerRadius =  rect.size.height * 0.2;
 //    
 //    [self.textView insertSubview:vv belowSubview:[self.textView viewWithTag:UIDocumentViewTag]];
-
+*/
 }
 
 -(NSString *)handleText:(NSString *)text WithArray:(NSArray *)array {

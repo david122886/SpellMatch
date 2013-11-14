@@ -39,7 +39,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 //    [self downloadAudio];
-   
+    [self.spellTextView becomeFirstResponder];
     [Utity shared].isOrg = NO;
     
     self.orgArray = [Utity handleTheString:self.practice.practiceText];
