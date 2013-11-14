@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-	self.orgText = @"may I ask one question";
+	self.orgText = @"The communique said the meeting has approved \"a decision on major issues concerning comprehensive and far reaching reforms.\" The decision, which contains many more details, is expected to be released soon";
     [Utity shared].isOrg = NO;
     
     self.orgArray = [Utity handleTheString:self.orgText];
