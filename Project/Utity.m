@@ -186,14 +186,19 @@
                                         
                                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                        for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                        if (index > [Utity shared].firstpoint) {
+                                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                            for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                            }
+                                            [temp_arrB removeObjectsInArray:tempArrayB];
+                                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                        }else {
+                                            [temp_arrB removeObjectAtIndex:index];
+                                            [temp_arrBB removeObjectAtIndex:index];
                                         }
-                                        [temp_arrB removeObjectsInArray:tempArrayB];
-                                        [temp_arrBB removeObjectsInArray:tempArrayBB];
                                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                     }
                                 }
@@ -284,14 +289,20 @@
                                                         
                                                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                                                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                                        for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                                        if (index > [Utity shared].firstpoint) {
+                                                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                                            for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                                            }
+                                                            [temp_arrB removeObjectsInArray:tempArrayB];
+                                                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                                        }else {
+                                                            [temp_arrB removeObjectAtIndex:index];
+                                                            [temp_arrBB removeObjectAtIndex:index];
                                                         }
-                                                        [temp_arrB removeObjectsInArray:tempArrayB];
-                                                        [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                                        
                                                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                                     }
                                                     break;
@@ -452,14 +463,19 @@
                                                         
                                                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                                                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                                        for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                                        if (index > [Utity shared].firstpoint) {
+                                                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                                            for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                                            }
+                                                            [temp_arrB removeObjectsInArray:tempArrayB];
+                                                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                                        }else {
+                                                            [temp_arrB removeObjectAtIndex:index];
+                                                            [temp_arrBB removeObjectAtIndex:index];
                                                         }
-                                                        [temp_arrB removeObjectsInArray:tempArrayB];
-                                                        [temp_arrBB removeObjectsInArray:tempArrayBB];
                                                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                                     }
                                                     break;
@@ -535,14 +551,19 @@
                                                         
                                                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                                                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                                        for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                                        if (index > [Utity shared].firstpoint) {
+                                                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                                            for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                                            }
+                                                            [temp_arrB removeObjectsInArray:tempArrayB];
+                                                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                                        }else {
+                                                            [temp_arrB removeObjectAtIndex:index];
+                                                            [temp_arrBB removeObjectAtIndex:index];
                                                         }
-                                                        [temp_arrB removeObjectsInArray:tempArrayB];
-                                                        [temp_arrBB removeObjectsInArray:tempArrayBB];
                                                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                                     }
                                                     break;
@@ -578,14 +599,19 @@
                                         
                                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                        for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                        if (index > [Utity shared].firstpoint) {
+                                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                            for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                            }
+                                            [temp_arrB removeObjectsInArray:tempArrayB];
+                                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                        }else {
+                                            [temp_arrB removeObjectAtIndex:index];
+                                            [temp_arrBB removeObjectAtIndex:index];
                                         }
-                                        [temp_arrB removeObjectsInArray:tempArrayB];
-                                        [temp_arrBB removeObjectsInArray:tempArrayBB];
                                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                                     }
                                 }
@@ -620,14 +646,19 @@
                                 
                                 [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                                 [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                                NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                                    [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                    [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                if (index > [Utity shared].firstpoint) {
+                                    NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                    NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                    for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                        [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                        [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                    }
+                                    [temp_arrB removeObjectsInArray:tempArrayB];
+                                    [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                }else {
+                                    [temp_arrB removeObjectAtIndex:index];
+                                    [temp_arrBB removeObjectAtIndex:index];
                                 }
-                                [temp_arrB removeObjectsInArray:tempArrayB];
-                                [temp_arrBB removeObjectsInArray:tempArrayBB];
                                 [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                             }
                         }
@@ -661,14 +692,19 @@
                         
                         [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                         [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                        NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                        NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                        for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
-                            [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                            [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                        if (index > [Utity shared].firstpoint) {
+                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                            for (int yy=[Utity shared].firstpoint; yy<=index; yy++) {
+                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                            }
+                            [temp_arrB removeObjectsInArray:tempArrayB];
+                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                        }else {
+                            [temp_arrB removeObjectAtIndex:index];
+                            [temp_arrBB removeObjectAtIndex:index];
                         }
-                        [temp_arrB removeObjectsInArray:tempArrayB];
-                        [temp_arrBB removeObjectsInArray:tempArrayBB];
                         [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                     }
                 }
@@ -753,19 +789,26 @@
                             }
                             [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                             [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                            for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
-                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                            if (i>[Utity shared].firstpoint) {
+                                NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
+                                    [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                    [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                }
+                                [temp_arrB removeObjectsInArray:tempArrayB];
+                                [temp_arrBB removeObjectsInArray:tempArrayBB];
+                            }else {
+                                [temp_arrB removeObjectAtIndex:i];
+                                [temp_arrBB removeObjectAtIndex:i];
                             }
-                            [temp_arrB removeObjectsInArray:tempArrayB];
-                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                            
                             [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                             break;
                         }
                     }
-                }else {
+                }
+                else {
                     //判断是否部分匹配
                     NSArray *arrayAA = [Utity handleTheLetter:strAA];
                     NSArray *arrayBB = [Utity handleTheLetter:strBB];
@@ -800,14 +843,20 @@
                             }
                             [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
                             [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                            NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                            NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                            for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
-                                [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                            if (i>[Utity shared].firstpoint) {
+                                NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
+                                    [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                    [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                }
+                                [temp_arrB removeObjectsInArray:tempArrayB];
+                                [temp_arrBB removeObjectsInArray:tempArrayBB];
+                            }else {
+                                [temp_arrB removeObjectAtIndex:i];
+                                [temp_arrBB removeObjectAtIndex:i];
                             }
-                            [temp_arrB removeObjectsInArray:tempArrayB];
-                            [temp_arrBB removeObjectsInArray:tempArrayBB];
+                            
                             [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
                             break;
                         }
