@@ -112,6 +112,27 @@
     return label;
 }
 
+-(NSString*)addUnderlineForText:(NSMutableString*)text withAttributes:(NSMutableArray*)attributeArr{
+    if (!text || [text isEqualToString:@""] || [attributeArr count] <= 0) {
+        return nil;
+    }
+    NSMutableArray *underLineArr = [NSMutableArray array];
+    for (SpellMatchObj *obj in attributeArr) {
+        if (obj.isUnderLine) {
+            [underLineArr addObject:obj];
+        }
+    }
+    for (int index = 0; index < underLineArr.count; index++) {
+        SpellMatchObj *underlineSpell = [underLineArr objectAtIndex:index];
+        [text insertString:@" " atIndex:underlineSpell.range.location];
+        for (SpellMatchObj *obj in attributeArr) {
+            if (obj.range.location > underlineSpell.range.location) {
+                obj.range = NSMakeRange(obj.range.location+underlineSpell.range.length, obj.range.length);
+            }
+        }
+    }
+    return text;
+}
 
 -(NSString*)splitText:(NSString*)textstr intoLinesArr:(NSMutableArray*)linesArr{
     if (!textstr || [textstr isEqualToString:@""]) {
@@ -179,6 +200,7 @@
             [sub removeFromSuperview];
         }
     }
+    text = [self addUnderlineForText:[NSMutableString stringWithString:text] withAttributes:attributeArr];
     text = [self splitText:text intoLinesArr:self.lineTextArr];//分行
     [self modifyTextAttributesArr:attributeArr withLinesArr:self.lineTextArr withTextString:text];//修改属性range
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:text];

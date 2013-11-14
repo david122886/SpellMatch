@@ -200,7 +200,7 @@
     NSLog(@"array = %@",array);
     NSArray *array2 = [Utity metaphoneArray:array];
     NSLog(@"array2 = %@",array2);
-    
+    [Utity shared].sureArray = [[NSMutableArray alloc]init];
     [Utity shared].correctArray = [[NSMutableArray alloc]init];
     [Utity shared].noticeArray = [[NSMutableArray alloc]init];
     [Utity shared].greenArray = [[NSMutableArray alloc]init];
@@ -247,6 +247,8 @@
             spell.range = range;
             spell.color = [UIColor yellowColor];
             spell.isUnderLine = NO;
+            NSMutableArray *correct_array = [dic objectForKey:@"sure"];
+            spell.originText = [correct_array objectAtIndex:i];
             [spellsArr addObject:spell];
         }
     }
@@ -254,7 +256,7 @@
     if (![[dic objectForKey:@"space"]isKindOfClass:[NSNull class]] && [dic objectForKey:@"space"]!=nil) {
         NSMutableArray *space_array = [dic objectForKey:@"space"];
         for (int i=0; i<space_array.count; i++) {
-            NSString *str = [array objectAtIndex:i];
+            NSString *str = [space_array objectAtIndex:i];
             NSArray *arr = [str componentsSeparatedByString:@"_"];
             int location = [[arr objectAtIndex:0]intValue];
             int length = [[arr objectAtIndex:1]intValue];

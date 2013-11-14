@@ -835,7 +835,7 @@
                             exit = YES;
                             NSLog(@"部分匹配");
                             [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                            [[Utity shared].sureArray addObject:[temp_arrA objectAtIndex:[Utity shared].firstpoint]];
+                            [[Utity shared].sureArray addObject:[temp_arrB objectAtIndex:[Utity shared].firstpoint]];
                             if (i > [Utity shared].firstpoint) {
                                 NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                                 NSRange range = [match rangeAtIndex:0];
