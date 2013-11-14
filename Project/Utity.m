@@ -835,6 +835,7 @@
                             exit = YES;
                             NSLog(@"部分匹配");
                             [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                            [[Utity shared].sureArray addObject:[temp_arrA objectAtIndex:[Utity shared].firstpoint]];
                             if (i > [Utity shared].firstpoint) {
                                 NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
                                 NSRange range = [match rangeAtIndex:0];
@@ -882,6 +883,7 @@
         }
         if ([Utity shared].yellowArray.count>0) {
             [mutableDic setObject:[Utity shared].yellowArray forKey:@"yellow"];
+            [mutableDic setObject:[Utity shared].sureArray forKey:@"sure"];
         }
         if ([Utity shared].spaceLineArray.count>0) {
             [mutableDic setObject:[Utity shared].spaceLineArray forKey:@"space"];
@@ -894,6 +896,7 @@
         [Utity shared].correctArray = nil;
         [Utity shared].greenArray = nil;
         [Utity shared].yellowArray = nil;
+        [Utity shared].sureArray = nil;
         [Utity shared].spaceLineArray = nil;
         return mutableDic;
     }

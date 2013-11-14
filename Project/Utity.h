@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSMutableArray *spaceLineArray;//下划线:缺词
 @property (nonatomic, strong) NSMutableArray *noticeArray;//标记需要提示的地方
 @property (nonatomic, strong) NSMutableArray *correctArray;//正确单词
+
+@property (nonatomic, strong) NSMutableArray *sureArray;
 + (Utity *)shared;
 
 +(NSString*)spellStringWithWord:(NSString*)word;

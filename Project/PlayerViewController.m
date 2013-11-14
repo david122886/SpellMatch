@@ -210,6 +210,7 @@
     NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
     NSLog(@"dic = %@",dic);
     
+    
     //绿色
     if (![[dic objectForKey:@"green"]isKindOfClass:[NSNull class]] && [dic objectForKey:@"green"]!=nil) {
         NSMutableArray *green_array = [dic objectForKey:@"green"];
