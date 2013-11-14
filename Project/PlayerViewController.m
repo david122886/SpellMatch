@@ -7,7 +7,7 @@
 //
 
 #import "PlayerViewController.h"
-
+#import "Utity.h"
 @interface PlayerViewController ()
 @property (nonatomic,strong) AVAudioPlayer *player;
 @property (nonatomic,strong) NSTimer *timer;
@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *playBt;
 @property (weak, nonatomic) IBOutlet UIButton *ckeckBt;
 @property (nonatomic,assign) int playTime;
+@property (nonatomic, strong) NSArray *orgArray;
+@property (nonatomic, strong) NSArray *metaphoneArray;
 - (IBAction)playBtClicked:(id)sender;
 - (IBAction)checkBtClicked:(id)sender;
 
@@ -32,11 +34,18 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+     self.spellTextView.text = nil;
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 //    [self downloadAudio];
+   
+    [Utity shared].isOrg = NO;
+    
+    self.orgArray = [Utity handleTheString:self.practice.practiceText];
+    NSLog(@"orgArray = %@",self.orgArray);
+    self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
+    NSLog(@"metaphoneArray = %@",self.metaphoneArray);
    
 }
 
@@ -49,7 +58,10 @@
 {
     [super viewDidLoad];
     self.title = @"听写";
-    [self test];
+    self.spellTextView.delegate = self;
+
+    
+//    [self test];
 	// Do any additional setup after loading the view.
 }
 
@@ -120,6 +132,28 @@
     
 }
 
+
+#pragma mark UITextViewDelegate
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    //    NSLog(@"%@",NSStringFromRange(textView.selectedRange) );
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+-(void)textViewDidChangeSelection:(UITextView *)textView{
+    
+}
+-(void)textViewDidEndEditing:(UITextView *)textView{
+    [textView resignFirstResponder];
+}
+#pragma mark --
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -146,7 +180,7 @@
 
 - (IBAction)checkBtClicked:(id)sender {
     self.playTime++;
-    [self test];
+//    [self test];
 //    NSError *err;
 //    NSDataDetector *d = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeDate error:&err];
 //    NSString *str = @"There is a pan";
@@ -154,6 +188,47 @@
 //        NSLog(@"match:%@",result);
 //    }];
 //    NSLog(@"error:%@",err);
+    
+    [Utity shared].isOrg = NO;
+    
+    
+    NSString *text = self.spellTextView.text;
+    NSArray *array = [Utity handleTheString:text];
+    NSLog(@"array = %@",array);
+    NSArray *array2 = [Utity metaphoneArray:array];
+    NSLog(@"array2 = %@",array2);
+    
+    [Utity shared].correctArray = [[NSMutableArray alloc]init];
+    [Utity shared].noticeArray = [[NSMutableArray alloc]init];
+    [Utity shared].greenArray = [[NSMutableArray alloc]init];
+    [Utity shared].yellowArray = [[NSMutableArray alloc]init];
+    [Utity shared].spaceLineArray = [[NSMutableArray alloc]init];
+    [Utity shared].firstpoint = 0;
+    NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
+    NSLog(@"dic = %@",dic);
+    for (NSString *key  in [dic allKeys]) {
+        for (int index = 0;index < [[dic valueForKey:key] count];index++) {
+            id obj = [[dic valueForKey:key] objectAtIndex:index];
+            if ([obj isKindOfClass:[NSTextCheckingResult class]]) {
+                NSTextCheckingResult *result = obj;
+                SpellMatchObj *spell = [[SpellMatchObj alloc] init];
+                spell.range = result.range;
+                if ([key isEqualToString:@"green"]) {
+                    spell.color = [UIColor greenColor];
+                    spell.originText = [[Utity shared].greenArray objectAtIndex:index];
+                }
+                if ([key isEqualToString:@"yellow"]) {
+                    spell.color = [UIColor yellowColor];
+                    spell.originText = [[Utity shared].yellowArray objectAtIndex:index];
+                }
+                if ([key isEqualToString:@"green"]) {
+                    spell.color = [UIColor greenColor];
+                    spell.originText = [[Utity shared].greenArray objectAtIndex:index];
+                }
+            }
+        }
+       
+    }
 }
 
 

@@ -10,7 +10,7 @@
 #import <AVFoundation/AVAudioPlayer.h>
 #import "PracticeObj.h"
 #import "SpellMatchTextView.h"
-@interface PlayerViewController : UIViewController<AVAudioPlayerDelegate,SpellMatchObjDelegate>
+@interface PlayerViewController : UIViewController<AVAudioPlayerDelegate,SpellMatchObjDelegate,UITextViewDelegate>
 @property (strong,nonatomic) NSString *audioURL;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 @property (strong,nonatomic) PracticeObj *practice;

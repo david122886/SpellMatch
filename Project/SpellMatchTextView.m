@@ -165,7 +165,6 @@
 }
 
 -(void)setText:(NSString *)text withAttributes:(NSMutableArray*)attributeArr{
-     self.delegate = self;
     if (text == nil) {
         self.attributedText = nil;
         self.text = nil;
@@ -198,17 +197,7 @@
     
 }
 
-#pragma mark UITextViewDelegate
--(void)textViewDidBeginEditing:(UITextView *)textView{
-//    NSLog(@"%@",NSStringFromRange(textView.selectedRange) );
-}
 
--(void)textViewDidChangeSelection:(UITextView *)textView{
-    UITextRange *selectedRange = [self selectedTextRange];
-    CGRect rect= [self firstRectForRange:selectedRange];
-     NSLog(@">>>>x=%f,y=%f:%@",rect.origin.x,rect.origin.y,NSStringFromCGRect(rect));
-}
-#pragma mark --
 
 -(NSMutableArray *)lineTextArr{
     if (!_lineTextArr) {
