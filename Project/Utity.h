@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *yellowArray;//黄色:部分匹配
 @property (nonatomic, strong) NSMutableArray *spaceLineArray;//下划线:缺词
 @property (nonatomic, strong) NSMutableArray *noticeArray;//标记需要提示的地方
+@property (nonatomic, strong) NSMutableArray *correctArray;//正确单词
 + (Utity *)shared;
 
 +(NSString*)spellStringWithWord:(NSString*)word;

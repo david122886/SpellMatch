@@ -168,9 +168,10 @@
                                         NSLog(@"完全正确");
                                         isSure = YES;
                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {
+                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {
                                         NSLog(@"基本正确");
                                         isSure = YES;
+                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                     }else {
@@ -205,9 +206,10 @@
                                         NSLog(@"完全正确");
                                         isSure = YES;
                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
-                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {
+                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {
                                         NSLog(@"基本正确");
                                         isSure = YES;
+                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:index]];
                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
                                     }else {
@@ -264,9 +266,10 @@
                                                         NSLog(@"完全正确");
                                                         isSure = YES;
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                         NSLog(@"基本正确");
                                                         isSure = YES;
+                                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                                     }else {
@@ -302,9 +305,10 @@
                                                         NSLog(@"完全正确");
                                                         isSure = YES;
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
-                                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                         NSLog(@"基本正确");
                                                         isSure = YES;
+                                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:index]];
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
                                                     }else {
@@ -332,9 +336,10 @@
                                                     NSLog(@"完全正确");
                                                     isSure = YES;
                                                     [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
-                                                }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                     NSLog(@"基本正确");
                                                     isSure = YES;
+                                                    [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                     [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:index]];
                                                     [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
                                                 }else {
@@ -359,9 +364,10 @@
                                                     NSLog(@"完全正确");
                                                     isSure = YES;
                                                     [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
-                                                }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                     NSLog(@"基本正确");
                                                     isSure = YES;
+                                                    [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                     [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:index]];
                                                     [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
                                                 }else {
@@ -388,9 +394,10 @@
                                 NSLog(@"完全正确");
                                 isSure = YES;
                                 [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
-                            }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                            }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                 NSLog(@"基本正确");
                                 isSure = YES;
+                                [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                 [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:index]];
                                 [[Utity shared].greenArray addObject:[temp_range objectAtIndex:index]];
                             }else {
@@ -427,9 +434,10 @@
                                                         NSLog(@"完全正确");
                                                         isSure = YES;
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                         NSLog(@"基本正确");
                                                         isSure = YES;
+                                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                                     }else {
@@ -467,9 +475,10 @@
                                                         NSLog(@"完全正确");
                                                         isSure = YES;
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:j]];
-                                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                         NSLog(@"基本正确");
                                                         isSure = YES;
+                                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:j]];
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:j]];
                                                     }else {
@@ -508,9 +517,10 @@
                                                         NSLog(@"完全正确");
                                                         isSure = YES;
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                                         NSLog(@"基本正确");
                                                         isSure = YES;
+                                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                                     }else {
@@ -550,9 +560,10 @@
                                         NSLog(@"完全正确");
                                         isSure = YES;
                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                         NSLog(@"基本正确");
                                         isSure = YES;
+                                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                     }else {
@@ -590,9 +601,10 @@
                                 NSLog(@"完全正确");
                                 isSure = YES;
                                 [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                            }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                            }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                                 NSLog(@"基本正确");
                                 isSure = YES;
+                                [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                                 [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                                 [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                             }else {
@@ -630,9 +642,10 @@
                         NSLog(@"完全正确");
                         isSure = YES;
                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                    }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                    }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
                         NSLog(@"基本正确");
                         isSure = YES;
+                        [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
                         [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                         [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                     }else {
@@ -661,6 +674,35 @@
                 }
                 return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];
             }
+            //输入句子长度大于原文本长度
+            else if (index <[Utity shared].firstpoint) {
+                NSString *orgString = [temp_arrB objectAtIndex:index];
+                NSString *string = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
+                int rotateDis = [Utity DistanceBetweenTwoString:string StrAbegin:0 StrAend:string.length-1 StrB:orgString StrBbegin:0 StrBend:orgString.length-1];
+                BOOL isSure = NO;
+                if (rotateDis == 0) {//完全相同
+                    NSLog(@"完全正确");
+                    isSure = YES;
+                    [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {//基本正确
+                    NSLog(@"基本正确");
+                    isSure = YES;
+                    [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:index]];
+                    [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                    [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                }else {
+                    NSLog(@"黑户");
+                    [Utity shared].firstpoint +=1;
+                }
+                if (isSure == YES) {
+                    [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
+                    [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                    [temp_arrB removeObjectAtIndex:index];
+                    [temp_arrBB removeObjectAtIndex:index];
+                    [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
+                }
+                return [Utity compareWithArray:temp_arrA andArray:temp_arrAA WithArray:temp_arrB andArray:temp_arrBB WithRange:temp_range];
+            }
             else {//位置相同
                 NSString *orgString = [temp_arrB objectAtIndex:[Utity shared].firstpoint];
                 NSString *string = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
@@ -670,9 +712,10 @@
                     NSLog(@"完全正确");
                     isSure = YES;
                     [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                }else if (rotateDis<orgString.length/2 && rotateDis<string.length/2) {//基本正确
+                }else if (rotateDis<= (abs(orgString.length-string.length)==0?1:2)) {
                     NSLog(@"基本正确");
                     isSure = YES;
+                    [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:[Utity shared].firstpoint]];
                     [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                     [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                 }else {
@@ -699,6 +742,7 @@
                         NSString *strLetter = [strBB substringFromIndex:range.length];
                         if ([strLetter isEqualToString:@"S"]) {
                             NSLog(@"基本正确");
+                            [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:i]];
                             [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                             [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
                             if (i > [Utity shared].firstpoint) {
@@ -795,8 +839,10 @@
         }
         if ([Utity shared].noticeArray.count>0) {
             [mutableDic setObject:[Utity shared].noticeArray forKey:@"notice"];
+            [mutableDic setObject:[Utity shared].correctArray forKey:@"correct"];
         }
         [Utity shared].noticeArray = nil;
+        [Utity shared].correctArray = nil;
         [Utity shared].greenArray = nil;
         [Utity shared].yellowArray = nil;
         [Utity shared].spaceLineArray = nil;

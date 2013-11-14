@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "Utity.h"
 #import "double_metaphone.h"
-
+#define UIDocumentViewTag 181337
 @interface ViewController ()
 
 @end
@@ -20,14 +20,14 @@
 {
     [super viewDidLoad];
     
-	self.orgText = @"The communique said the meeting has approved \"a decision on major issues concerning comprehensive and far reaching reforms.\" The decision, which contains many more details, is expected to be released soon";
+	self.orgText = @"will u go to chinese";
     [Utity shared].isOrg = NO;
     
     self.orgArray = [Utity handleTheString:self.orgText];
     NSLog(@"orgArray = %@",self.orgArray);
     self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
     NSLog(@"metaphoneArray = %@",self.metaphoneArray);
-    
+
 }
 
 -(NSString *)handleText:(NSString *)text WithArray:(NSArray *)array {
@@ -59,6 +59,7 @@
     NSArray *array2 = [Utity metaphoneArray:array];
     NSLog(@"array2 = %@",array2);
     
+    [Utity shared].correctArray = [[NSMutableArray alloc]init];
     [Utity shared].noticeArray = [[NSMutableArray alloc]init];
     [Utity shared].greenArray = [[NSMutableArray alloc]init];
     [Utity shared].yellowArray = [[NSMutableArray alloc]init];
