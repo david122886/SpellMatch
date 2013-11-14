@@ -207,6 +207,7 @@
     NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
     NSLog(@"dic = %@",dic);
     
+    
     //绿色
     if (![[dic objectForKey:@"green"]isKindOfClass:[NSNull class]] && [dic objectForKey:@"green"]!=nil) {
         NSMutableArray *green_array = [dic objectForKey:@"green"];
@@ -220,7 +221,7 @@
             
             if (![[dic objectForKey:@"notice"]isKindOfClass:[NSNull class]] && [dic objectForKey:@"notice"]!=nil) {
                 NSMutableArray *notice_array = [dic objectForKey:@"notice"];
-                for (int k=0; k<green_array.count; k++) {
+                for (int k=0; k<notice_array.count; k++) {
                     NSTextCheckingResult *math2 = (NSTextCheckingResult *)[notice_array objectAtIndex:k];
                     NSRange range2 = [math2 rangeAtIndex:0];
                     if (range.location==range2.location && range.length==range2.length) {
@@ -249,7 +250,6 @@
         NSMutableArray *space_array = [dic objectForKey:@"space"];
         for (int i=0; i<space_array.count; i++) {
             NSString *str = [array objectAtIndex:i];
-            NSMutableString *spaceStr = [NSMutableString string];
             NSArray *arr = [str componentsSeparatedByString:@"_"];
             int location = [[arr objectAtIndex:0]intValue];
             int length = [[arr objectAtIndex:1]intValue];

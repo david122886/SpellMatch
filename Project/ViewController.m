@@ -27,6 +27,48 @@
     NSLog(@"orgArray = %@",self.orgArray);
     self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
     NSLog(@"metaphoneArray = %@",self.metaphoneArray);
+
+    for (UIView *view in self.textView.subviews)
+        
+    {
+        
+        if ([view isKindOfClass:NSClassFromString(@"_UITextContainerView")] || [view isKindOfClass:NSClassFromString(@"UIWebDocumentView")])
+            
+        {
+            
+            view.tag = UIDocumentViewTag;
+            
+            break;
+            
+        }
+        
+    }
+    
+    
+    
+    NSRange range = NSMakeRange(49, 1);
+    
+    UITextPosition *startPosition = [self.textView positionFromPosition:self.textView.beginningOfDocument offset:range.location];
+    
+    UITextPosition *endPosition = [self.textView positionFromPosition:startPosition offset:range.length];
+    
+    UITextRange *textRange = [self.textView textRangeFromPosition:startPosition toPosition:endPosition];
+    
+    CGRect rect = [self.textView firstRectForRange:textRange];
+    
+    NSLog(@"x=%f,y=%f,wigth=%f,height=%f",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height);
+    
+    float curHeight = self.textView.frame.size.height;
+    float conHeight = self.textView.contentSize.height;
+    
+    NSLog(@"curHeight=%f,conHeight=%f",curHeight,conHeight);
+//    UIView *vv = [[UIView alloc]initWithFrame:rect];
+//    
+//    vv.backgroundColor = [UIColor colorWithRed:150.0/255.0 green:200.0/255.0 blue:1.0 alpha:1.0];
+//    vv.layer.cornerRadius =  rect.size.height * 0.2;
+//    
+//    [self.textView insertSubview:vv belowSubview:[self.textView viewWithTag:UIDocumentViewTag]];
+
 }
 
 -(NSString *)handleText:(NSString *)text WithArray:(NSArray *)array {
@@ -58,6 +100,7 @@
     NSArray *array2 = [Utity metaphoneArray:array];
     NSLog(@"array2 = %@",array2);
     
+    [Utity shared].sureArray = [[NSMutableArray alloc]init];
     [Utity shared].correctArray = [[NSMutableArray alloc]init];
     [Utity shared].noticeArray = [[NSMutableArray alloc]init];
     [Utity shared].greenArray = [[NSMutableArray alloc]init];
