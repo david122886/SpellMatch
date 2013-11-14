@@ -8,6 +8,9 @@
 
 #import "SpellMatchTextView.h"
 @implementation SpellMatchObj
+-(NSString *)description{
+    return [NSString stringWithFormat:@"range:%@==color:%@==underline:%@==originText:%@",NSStringFromRange(self.range),self.color,self.isUnderLine?@"_":@"NO",self.originText];
+}
 @end
 
 @interface Lineobj : NSObject
@@ -19,7 +22,7 @@
 @end
 
 @interface SpellMatchTextView()
-@property (nonatomic,strong) NSMutableArray *lineTextArr;
+
 @end
 
 @implementation SpellMatchTextView
@@ -165,6 +168,7 @@
 }
 
 -(void)setText:(NSString *)text withAttributes:(NSMutableArray*)attributeArr{
+    NSLog(@"%@",text);
     if (text == nil) {
         self.attributedText = nil;
         self.text = nil;
@@ -193,8 +197,7 @@
             [attri addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:obj.range];
         }
     }
-    self.attributedText = attri;
-    
+    self.attributedText = attri;    
 }
 
 

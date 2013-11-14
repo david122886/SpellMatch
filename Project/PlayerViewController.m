@@ -188,11 +188,14 @@
 //        NSLog(@"match:%@",result);
 //    }];
 //    NSLog(@"error:%@",err);
-    
+    NSMutableArray *spellsArr = [NSMutableArray array];
+    self.spellTextView.lineTextArr = nil;
     [Utity shared].isOrg = NO;
     
     
     NSString *text = self.spellTextView.text;
+    text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"%@",text);
     NSArray *array = [Utity handleTheString:text];
     NSLog(@"array = %@",array);
     NSArray *array2 = [Utity metaphoneArray:array];
@@ -220,7 +223,7 @@
             
             if (![[dic objectForKey:@"notice"]isKindOfClass:[NSNull class]] && [dic objectForKey:@"notice"]!=nil) {
                 NSMutableArray *notice_array = [dic objectForKey:@"notice"];
-                for (int k=0; k<green_array.count; k++) {
+                for (int k=0; k<notice_array.count; k++) {
                     NSTextCheckingResult *math2 = (NSTextCheckingResult *)[notice_array objectAtIndex:k];
                     NSRange range2 = [math2 rangeAtIndex:0];
                     if (range.location==range2.location && range.length==range2.length) {
@@ -230,6 +233,7 @@
                     }
                 }
             }
+            [spellsArr addObject:spell];
         }
     }
     //黄色
@@ -242,6 +246,7 @@
             spell.range = range;
             spell.color = [UIColor yellowColor];
             spell.isUnderLine = NO;
+            [spellsArr addObject:spell];
         }
     }
     //下划线
@@ -249,7 +254,6 @@
         NSMutableArray *space_array = [dic objectForKey:@"space"];
         for (int i=0; i<space_array.count; i++) {
             NSString *str = [array objectAtIndex:i];
-            NSMutableString *spaceStr = [NSMutableString string];
             NSArray *arr = [str componentsSeparatedByString:@"_"];
             int location = [[arr objectAtIndex:0]intValue];
             int length = [[arr objectAtIndex:1]intValue];
@@ -258,32 +262,16 @@
             NSRange range =NSMakeRange(location, length);
             spell.range = range;
             spell.isUnderLine = YES;
+            [spellsArr addObject:spell];
         }
     }
     
-    for (NSString *key  in [dic allKeys]) {
-        for (int index = 0;index < [[dic valueForKey:key] count];index++) {
-            id obj = [[dic valueForKey:key] objectAtIndex:index];
-            if ([obj isKindOfClass:[NSTextCheckingResult class]]) {
-                NSTextCheckingResult *result = obj;
-                SpellMatchObj *spell = [[SpellMatchObj alloc] init];
-                spell.range = result.range;
-                if ([key isEqualToString:@"green"]) {
-                    spell.color = [UIColor greenColor];
-                    spell.originText = [[Utity shared].greenArray objectAtIndex:index];
-                }
-                if ([key isEqualToString:@"yellow"]) {
-                    spell.color = [UIColor yellowColor];
-                    spell.originText = [[Utity shared].yellowArray objectAtIndex:index];
-                }
-                if ([key isEqualToString:@"green"]) {
-                    spell.color = [UIColor greenColor];
-                    spell.originText = [[Utity shared].greenArray objectAtIndex:index];
-                }
-            }
-        }
-       
-    }
+    
+    NSLog(@"%@",spellsArr);
+    self.spellTextView.lineHeight = 40.0f;
+   
+    [self.spellTextView setText:text withAttributes:spellsArr];
+     [self addTipString:spellsArr];
 }
 
 

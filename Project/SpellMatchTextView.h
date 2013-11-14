@@ -19,6 +19,7 @@
 
 @interface SpellMatchTextView : UITextView<UITextViewDelegate>
 @property (nonatomic,assign) float lineHeight;
+@property (nonatomic,strong) NSMutableArray *lineTextArr;
 @property (weak,nonatomic) id<SpellMatchObjDelegate> spellDelegate;
 -(void)setText:(NSString *)text withAttributes:(NSMutableArray*)attributeArr;
 @end
