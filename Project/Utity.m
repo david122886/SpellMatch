@@ -809,57 +809,94 @@
                     }
                 }
                 else {
-                    //判断是否部分匹配
-                    NSArray *arrayAA = [Utity handleTheLetter:strAA];
-                    NSArray *arrayBB = [Utity handleTheLetter:strBB];
-                    for (int k=0; k<arrayAA.count; k++) {
-                        NSString *letter = [arrayAA objectAtIndex:k];
-                        if ([arrayBB containsObject:letter]) {
-                            m++;
-                        }
-                    }
-                    float x = (float)strBB.length/2;
-                    if (m-x>0) {//简化部分匹配
-                        NSString *strA = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
-                        NSString *strB = [temp_arrB objectAtIndex:i];
-                        NSArray *arrayA = [Utity handleTheLetter:strA];
-                        NSArray *arrayB = [Utity handleTheLetter:strB];
-                        for (int k=0; k<arrayA.count; k++) {
-                            NSString *letter = [arrayA objectAtIndex:k];
-                            if ([arrayB containsObject:letter]) {
-                                n++;
-                            }
-                        }
-                        float y = (float)strB.length/2;
-                        if (n-y>=0) {//原文部分匹配
-                            exit = YES;
-                            NSLog(@"部分匹配");
-                            [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
-                            [[Utity shared].sureArray addObject:[temp_arrA objectAtIndex:[Utity shared].firstpoint]];
-                            if (i > [Utity shared].firstpoint) {
-                                NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
-                                NSRange range = [match rangeAtIndex:0];
-                                NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
-                                [[Utity shared].spaceLineArray addObject:str];
-                            }
-                            [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
-                            [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
-                            if (i>[Utity shared].firstpoint) {
-                                NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
-                                NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
-                                for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
-                                    [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
-                                    [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                    NSRange range2 = [strAA rangeOfString:strBB];
+                    if (range2.location!=NSNotFound) {
+                        if (range2.location==0 && range2.length <strAA.length) {
+                            NSString *strLetter = [strAA substringFromIndex:range2.length];
+                            if ([strLetter isEqualToString:@"S"]) {
+                                NSLog(@"基本正确");
+                                [[Utity shared].correctArray addObject:[temp_arrB objectAtIndex:i]];
+                                [[Utity shared].noticeArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                                [[Utity shared].greenArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                                if (i > [Utity shared].firstpoint) {
+                                    NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
+                                    NSRange range = [match rangeAtIndex:0];
+                                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
+                                    [[Utity shared].spaceLineArray addObject:str];
                                 }
-                                [temp_arrB removeObjectsInArray:tempArrayB];
-                                [temp_arrBB removeObjectsInArray:tempArrayBB];
-                            }else {
-                                [temp_arrB removeObjectAtIndex:i];
-                                [temp_arrBB removeObjectAtIndex:i];
+                                [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
+                                [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                                if (i>[Utity shared].firstpoint) {
+                                    NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                    NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                    for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
+                                        [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                        [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                    }
+                                    [temp_arrB removeObjectsInArray:tempArrayB];
+                                    [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                }else {
+                                    [temp_arrB removeObjectAtIndex:i];
+                                    [temp_arrBB removeObjectAtIndex:i];
+                                }
+                                
+                                [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
+                                break;
                             }
-                            
-                            [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
-                            break;
+                        }
+                    }else {
+                        //判断是否部分匹配
+                        NSArray *arrayAA = [Utity handleTheLetter:strAA];
+                        NSArray *arrayBB = [Utity handleTheLetter:strBB];
+                        for (int k=0; k<arrayAA.count; k++) {
+                            NSString *letter = [arrayAA objectAtIndex:k];
+                            if ([arrayBB containsObject:letter]) {
+                                m++;
+                            }
+                        }
+                        float x = (float)strBB.length/2;
+                        if (m-x>0) {//简化部分匹配
+                            NSString *strA = [temp_arrA objectAtIndex:[Utity shared].firstpoint];
+                            NSString *strB = [temp_arrB objectAtIndex:i];
+                            NSArray *arrayA = [Utity handleTheLetter:strA];
+                            NSArray *arrayB = [Utity handleTheLetter:strB];
+                            for (int k=0; k<arrayA.count; k++) {
+                                NSString *letter = [arrayA objectAtIndex:k];
+                                if ([arrayB containsObject:letter]) {
+                                    n++;
+                                }
+                            }
+                            float y = (float)strB.length/2;
+                            if (n-y>=0) {//原文部分匹配
+                                exit = YES;
+                                NSLog(@"部分匹配");
+                                [[Utity shared].yellowArray addObject:[temp_range objectAtIndex:[Utity shared].firstpoint]];
+                                [[Utity shared].sureArray addObject:[temp_arrB objectAtIndex:[Utity shared].firstpoint]];
+                                if (i > [Utity shared].firstpoint) {
+                                    NSTextCheckingResult *match = [temp_range objectAtIndex:[Utity shared].firstpoint];
+                                    NSRange range = [match rangeAtIndex:0];
+                                    NSString *str = [NSString stringWithFormat:@"%d_%d",range.location,i-[Utity shared].firstpoint];//从起点x开始之前少x个单词
+                                    [[Utity shared].spaceLineArray addObject:str];
+                                }
+                                [temp_arrA removeObjectAtIndex:[Utity shared].firstpoint];
+                                [temp_arrAA removeObjectAtIndex:[Utity shared].firstpoint];
+                                if (i>[Utity shared].firstpoint) {
+                                    NSMutableArray *tempArrayB = [[NSMutableArray alloc]init];
+                                    NSMutableArray *tempArrayBB = [[NSMutableArray alloc]init];
+                                    for (int yy=[Utity shared].firstpoint; yy<=i; yy++) {
+                                        [tempArrayB addObject:[temp_arrB objectAtIndex:yy]];
+                                        [tempArrayBB addObject:[temp_arrBB objectAtIndex:yy]];
+                                    }
+                                    [temp_arrB removeObjectsInArray:tempArrayB];
+                                    [temp_arrBB removeObjectsInArray:tempArrayBB];
+                                }else {
+                                    [temp_arrB removeObjectAtIndex:i];
+                                    [temp_arrBB removeObjectAtIndex:i];
+                                }
+                                
+                                [temp_range removeObjectAtIndex:[Utity shared].firstpoint];
+                                break;
+                            }
                         }
                     }
                 }
