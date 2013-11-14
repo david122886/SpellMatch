@@ -28,6 +28,26 @@
     self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
     NSLog(@"metaphoneArray = %@",self.metaphoneArray);
 }
+
+-(NSString *)handleText:(NSString *)text WithArray:(NSArray *)array {
+    NSMutableString *string = [NSMutableString stringWithString:text];
+    if (array.count>0) {
+        int m = 0;
+        for (int i=0; i<array.count; i++) {
+            NSString *str = [array objectAtIndex:i];
+            NSMutableString *spaceStr = [NSMutableString string];
+            NSArray *arr = [str componentsSeparatedByString:@"_"];
+            int location = [[arr objectAtIndex:0]intValue];
+            int length = [[arr objectAtIndex:1]intValue];
+            for (int k=0; k<length; k++) {
+                [spaceStr appendString:@"_"];
+            }
+            [string insertString:spaceStr atIndex:location+m];
+            m +=length;
+        }
+    }
+    return string;
+}
 -(IBAction)btnPressed:(id)sender {
     [Utity shared].isOrg = NO;
     
@@ -46,10 +66,6 @@
     [Utity shared].firstpoint = 0;
     NSDictionary *dic = [Utity compareWithArray:array andArray:array2 WithArray:self.orgArray andArray:self.metaphoneArray WithRange:[Utity shared].rangeArray];
     NSLog(@"dic = %@",dic);
-    
-    if (![[dic objectForKey:@"green"]isKindOfClass:[NSNull class]] && [dic objectForKey:@"green"]!=nil) {
-        NSMutableArray *green_array = [dic objectForKey:@"green"];
-    }
 
 }
 - (void)didReceiveMemoryWarning

@@ -52,7 +52,7 @@
 +(NSArray *)handleTheString:(NSString *)string {
     NSMutableArray *tempArray = [[NSMutableArray alloc]init];
     NSError *error;
-    NSString *regTags = @"([a-zA-Z]+[-']*[a-zA-Z]+)|([a-zA-Z]+)";
+    NSString *regTags = @"([a-zA-Z]+[-']*[a-zA-Z]+)|([a-zA-Z]+)";//added by david
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regTags
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                              error:&error];
