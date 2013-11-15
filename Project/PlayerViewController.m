@@ -48,6 +48,8 @@
     PracticeObj *obj = [self.practiceArr firstObject];
     self.practice = obj;
     self.sentenceIndex = 0;
+    self.checkTime = 0;
+    self.playTime = 0;
     [self.netxSentenceBt setTitle:[NSString stringWithFormat:@"第%d句",self.sentenceIndex+1] forState:UIControlStateNormal];
     self.orgArray = [Utity handleTheString:obj.practiceText];
 //    NSLog(@"orgArray = %@",self.orgArray);
@@ -313,7 +315,7 @@
             NSLog(@"underline:%@",[text substringWithRange:NSMakeRange(obj.range.location, 5)]);
         }
     }
-    if ([spellsArr count] <= 0) {
+    if ([spellsArr count] <= 0 && self.checkTime >= 6) {
         SpellMatchObj *spell = [[SpellMatchObj alloc] init];
         spell.range = NSMakeRange(0, self.practice.practiceText.length);
         spell.color = [UIColor yellowColor];
