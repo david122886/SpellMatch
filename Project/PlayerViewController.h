@@ -13,6 +13,6 @@
 @interface PlayerViewController : UIViewController<AVAudioPlayerDelegate,SpellMatchObjDelegate,UITextViewDelegate>
 @property (strong,nonatomic) NSString *audioURL;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
-@property (strong,nonatomic) PracticeObj *practice;
+@property (strong,nonatomic) NSArray *practiceArr;
 @property (weak, nonatomic) IBOutlet SpellMatchTextView *spellTextView;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "PracticeObj.h"
 @interface PracticeObjDao : NSObject
-+(void)downloadAudioDataWithURL:(NSURL*)url success:(void (^)(NSArray *dataArr))sucess failure:(void(^)(NSError *error))failure;
++(void)downloadAudioDataWithURL:(NSURL*)url success:(void (^)(NSMutableDictionary *dataArr))sucess failure:(void(^)(NSError *error))failure;
 @end

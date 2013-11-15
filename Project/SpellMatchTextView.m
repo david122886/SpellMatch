@@ -108,7 +108,7 @@
     }
     
     label.text = spell.originText;
-    NSLog(@"%@",NSStringFromCGRect(label.frame));
+//    NSLog(@"%@",NSStringFromCGRect(label.frame));
     return label;
 }
 
@@ -124,10 +124,27 @@
     }
     for (int index = 0; index < underLineArr.count; index++) {
         SpellMatchObj *underlineSpell = [underLineArr objectAtIndex:index];
-        [text insertString:@" " atIndex:underlineSpell.range.location];
+        for (int index = 0; index < underlineSpell.range.length; index++) {
+            [text insertString:@"_ " atIndex:underlineSpell.range.location];
+        }
+        
+        BOOL isUn = NO;
         for (SpellMatchObj *obj in attributeArr) {
-            if (obj.range.location > underlineSpell.range.location) {
-                obj.range = NSMakeRange(obj.range.location+underlineSpell.range.length, obj.range.length);
+            if (obj.isUnderLine) {
+                isUn=YES;
+            }
+
+            if (obj.range.location >= underlineSpell.range.location) {
+                if (obj.isUnderLine && obj.range.location == underlineSpell.range.location) {
+                    
+                }else{
+                    obj.range = NSMakeRange(obj.range.location+underlineSpell.range.length*2, obj.range.length);
+                }
+                
+                if (isUn) {
+                    NSLog(@"%@",[text substringWithRange:obj.range]);
+                    isUn = NO;
+                }
             }
         }
     }
@@ -190,9 +207,11 @@
 
 -(void)setText:(NSString *)text withAttributes:(NSMutableArray*)attributeArr{
     NSLog(@"%@",text);
-    if (text == nil) {
+    if (text == nil || attributeArr.count <= 0) {
         self.attributedText = nil;
         self.text = nil;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"匹配失败" message:text?:@"文本为空" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
         return;
     }
     for (UIView *sub in self.subviews) {
@@ -201,7 +220,13 @@
         }
     }
     text = [self addUnderlineForText:[NSMutableString stringWithString:text] withAttributes:attributeArr];
+    NSLog(@"underString:%@\n%@",text,attributeArr);
     text = [self splitText:text intoLinesArr:self.lineTextArr];//分行
+    if (!text) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"参考文本无效" message:text?:@"文本为空" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
     [self modifyTextAttributesArr:attributeArr withLinesArr:self.lineTextArr withTextString:text];//修改属性range
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:text];
     NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
@@ -216,7 +241,11 @@
             [self addSubview:obj.textLabel];
         }
         if (obj.isUnderLine) {
-            [attri addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:obj.range];
+            [attri addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:obj.range];
+//            for (int index = 0; index < obj.range.length; index++) {
+//                [attri addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:NSMakeRange(obj.range.location+index*2, 1)];
+//            }
+//            
         }
     }
     self.attributedText = attri;    

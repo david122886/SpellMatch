@@ -11,7 +11,7 @@
 #import "PlayerViewController.h"
 #import "PracticeObjDao.h"
 @interface MainController ()
-@property(nonatomic,strong) NSMutableArray *listArr;
+@property(nonatomic,strong) NSMutableDictionary *listArr;
 @end
 
 @implementation MainController
@@ -28,25 +28,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self test];
+//    [self test];
+    [self requestData];
 	// Do any additional setup after loading the view.
     self.title = @"听写练习";
 }
 
 -(void)test{
-    for (int index = 0; index < 20; index++) {
-        PracticeObj *p = [[PracticeObj alloc] init];
-        p.practiceID = [NSString stringWithFormat:@"%d",index];
-        p.practiceAudioURL = @"http://zhangmenshiting.baidu.com/data2/music/97466991/97466991.mp3?xcode=f0a1ec475ee077e1f4fc82801453147dcde6d43be9d29ba9";
-        p.practiceText =@"Summer time eh It's summer time wooSummer time eh It's time to the partySummer time eh It's summer timeDon't you know what time it is it's";
-        p.practiceTitle = @"第一章，动词应用";
-        [self.listArr addObject:p];
-    }
+    NSMutableArray *arr = [NSMutableArray array];
+    PracticeObj *p = [[PracticeObj alloc] init];
+    p.practiceID = [NSString stringWithFormat:@"%d",index];
+    p.practiceAudioURL = @"http://zhangmenshiting.baidu.com/data2/music/97466991/97466991.mp3?xcode=f0a1ec475ee077e1f4fc82801453147dcde6d43be9d29ba9";
+    p.practiceText =@"Summer time eh It's summer time wooSummer time eh It's time to the partySummer time eh It's summer timeDon't you know what time it is it's";
+    p.practiceTitle = @"第一章，动词应用";
+    [arr addObject:p];
+    [self.listArr setValue:arr forKey:@"第一章，动词应用"];
 }
 -(void)requestData{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [PracticeObjDao downloadAudioDataWithURL:[NSURL URLWithString:@""] success:^(NSArray *dataArr) {
-        self.listArr = [NSMutableArray arrayWithArray:dataArr];
+    [PracticeObjDao downloadAudioDataWithURL:[NSURL URLWithString:URLSTRING] success:^(NSDictionary *dataArr) {
+        self.listArr = dataArr;
+        [self.tableview reloadData];
          [MBProgressHUD hideHUDForView:self.view animated:YES];
     } failure:^(NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc ] initWithTitle:@"" message:[error.userInfo objectForKey:@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -57,10 +59,14 @@
 
 #pragma mark UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PracticeObj *p =[self.listArr objectAtIndex:indexPath.row];
     UIStoryboard *s = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PlayerViewController *c = [s instantiateViewControllerWithIdentifier:@"PlayerViewController"];
-    c.practice = p;
+    c.practiceArr = [[self.listArr allValues] objectAtIndex:indexPath.row];
+    if ([c.practiceArr count] <= 0) {
+        UIAlertView *alet = [[UIAlertView alloc] initWithTitle:@"" message:@"没有数据" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alet show];
+        return;
+    }
     [self.navigationController pushViewController:c animated:YES];
 }
 
@@ -73,8 +79,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    PracticeObj *p =[self.listArr objectAtIndex:indexPath.row];
-    cell.textLabel.text = p.practiceTitle;
+    cell.textLabel.text = [[self.listArr allKeys] objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -102,9 +107,9 @@
 }
 
 #pragma mark property
--(NSMutableArray *)listArr{
+-(NSMutableDictionary *)listArr{
     if (!_listArr) {
-        _listArr = [NSMutableArray array];
+        _listArr = [NSMutableDictionary dictionary];
     }
     return _listArr;
 }

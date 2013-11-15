@@ -15,10 +15,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *playBt;
 @property (weak, nonatomic) IBOutlet UIButton *ckeckBt;
 @property (nonatomic,assign) int playTime;
+@property (nonatomic,assign) int checkTime;
+@property (nonatomic,assign) int sentenceIndex;
 @property (nonatomic, strong) NSArray *orgArray;
 @property (nonatomic, strong) NSArray *metaphoneArray;
+@property (weak, nonatomic) IBOutlet UIButton *netxSentenceBt;
+@property (nonatomic, strong) PracticeObj *practice;
 - (IBAction)playBtClicked:(id)sender;
 - (IBAction)checkBtClicked:(id)sender;
+- (IBAction)netxSentenceBtClicked:(id)sender;
 
 @end
 
@@ -38,14 +43,17 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    [self downloadAudio];
     [self.spellTextView becomeFirstResponder];
     [Utity shared].isOrg = NO;
-    
-    self.orgArray = [Utity handleTheString:self.practice.practiceText];
-    NSLog(@"orgArray = %@",self.orgArray);
+    PracticeObj *obj = [self.practiceArr firstObject];
+    self.practice = obj;
+    self.sentenceIndex = 0;
+    [self.netxSentenceBt setTitle:[NSString stringWithFormat:@"第%d句",self.sentenceIndex+1] forState:UIControlStateNormal];
+    self.orgArray = [Utity handleTheString:obj.practiceText];
+//    NSLog(@"orgArray = %@",self.orgArray);
     self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
-    NSLog(@"metaphoneArray = %@",self.metaphoneArray);
+//    NSLog(@"metaphoneArray = %@",self.metaphoneArray);
+    [self downloadAudio];
    
 }
 
@@ -117,16 +125,20 @@
 -(void)downloadAudio{
     [self.playBt setEnabled:NO];
     [self.ckeckBt setEnabled:NO];
+    [self.netxSentenceBt setEnabled:NO];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.practice.practiceAudioURL]];
-        NSString *path= [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp3",self.practice.practiceID]];
-        self.audioURL = path;
-        NSLog(@"%@>>>\n%@",path,self.practice.practiceAudioURL);
-        [data writeToFile:path atomically:YES];
-        [self.playBt setEnabled:YES];
-//        [self.ckeckBt setEnabled:YES];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSData __block *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.practice.practiceAudioURL]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *path= [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp3",self.practice.practiceID]];
+            self.audioURL = path;
+            NSLog(@"%@>>>\n%@",path,self.practice.practiceAudioURL);
+            [data writeToFile:path atomically:YES];
+            [self.playBt setEnabled:YES];
+            [self.netxSentenceBt setEnabled:YES];
+            //        [self.ckeckBt setEnabled:YES];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
     });
     self.playTime = 0;
     
@@ -168,18 +180,19 @@
     [self.playBt setTitle:@"正在播放" forState:UIControlStateNormal];
     [self.playBt setEnabled:NO];
     [self.ckeckBt setEnabled:NO];
+     [self.netxSentenceBt setEnabled:NO];
     if (self.timer) {
         [self.timer invalidate];
         self.timer = nil;
     }
         [self.player play];
+    self.playTime++;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
 //    [self.timer fire];
-
 }
 
 - (IBAction)checkBtClicked:(id)sender {
-    self.playTime++;
+    self.checkTime++;
 //    [self test];
 //    NSError *err;
 //    NSDataDetector *d = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeDate error:&err];
@@ -194,7 +207,9 @@
     
     
     NSString *text = self.spellTextView.text;
-    text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    text = [text stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    NSLog(@"%@",text);
+    text =   [text stringByReplacingOccurrencesOfString:@"[_]|[\n]+|[ ]{2,}" withString:@" " options:NSRegularExpressionSearch  range:NSMakeRange(0, text.length)];
     NSLog(@"%@",text);
     NSArray *array = [Utity handleTheString:text];
     NSLog(@"array = %@",array);
@@ -265,16 +280,65 @@
             NSRange range =NSMakeRange(location, length);
             spell.range = range;
             spell.isUnderLine = YES;
-            [spellsArr addObject:spell];
+            BOOL isInsert = NO;
+            for ( int index = 0;index < spellsArr.count;index++) {
+                SpellMatchObj *obj = [spellsArr objectAtIndex:index];
+                if (obj.range.location == spell.range.location) {
+                    isInsert = YES;
+                    [spellsArr insertObject:spell atIndex:index];
+                    break;
+                }
+            }
+            if (!isInsert) {
+                [spellsArr addObject:spell];
+            }
         }
     }
     
-    
+    [spellsArr sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        SpellMatchObj *s1 = obj1;
+        SpellMatchObj *s2 = obj2;
+        if (s1.range.location > s2.range.location) {
+            return NSOrderedDescending;
+        }else
+            if (s1.range.location < s2.range.location) {
+                return NSOrderedAscending;
+            }else{
+                return NSOrderedSame;
+            }
+    }];
     NSLog(@"%@",spellsArr);
+       for (SpellMatchObj *obj in spellsArr) {
+        if (obj.isUnderLine) {
+            NSLog(@"underline:%@",[text substringWithRange:NSMakeRange(obj.range.location, 5)]);
+        }
+    }
+    if ([spellsArr count] <= 0) {
+        SpellMatchObj *spell = [[SpellMatchObj alloc] init];
+        spell.range = NSMakeRange(0, self.practice.practiceText.length);
+        spell.color = [UIColor yellowColor];
+        spell.isUnderLine = NO;
+        spell.originText = self.practice.practiceText;
+        [spellsArr addObject:spell];
+    }
     self.spellTextView.lineHeight = 40.0f;
    
     [self.spellTextView setText:text withAttributes:spellsArr];
      [self addTipString:spellsArr];
+}
+
+- (IBAction)netxSentenceBtClicked:(id)sender {
+    self.sentenceIndex = self.sentenceIndex+1 < [self.practiceArr count]?self.sentenceIndex+1:0;
+    [self.netxSentenceBt setTitle:[NSString stringWithFormat:@"第%d句",self.sentenceIndex+1] forState:UIControlStateNormal];
+    [Utity shared].isOrg = NO;
+    PracticeObj *obj = [self.practiceArr objectAtIndex:self.sentenceIndex];
+    self.practice = obj;
+    
+    self.orgArray = [Utity handleTheString:obj.practiceText];
+    //    NSLog(@"orgArray = %@",self.orgArray);
+    self.metaphoneArray = [Utity metaphoneArray:self.orgArray];
+    //    NSLog(@"metaphoneArray = %@",self.metaphoneArray);
+    [self downloadAudio];
 }
 
 
@@ -289,7 +353,7 @@
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     [self.playBt setTitle:@"点击播放" forState:UIControlStateNormal];
     [self.playBt setEnabled:YES];
-    [self.ckeckBt setHidden:NO];
+     [self.netxSentenceBt setEnabled:YES];
     [self.timer invalidate];
     self.timer = nil;
     [self.ckeckBt setEnabled:YES];
